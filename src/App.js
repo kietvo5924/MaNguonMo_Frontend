@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import AdminPage from "./pages_admin/AdminPage";
+import CategoryManagement from "./pages_admin/CategoryManagement";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/categories" element={<CategoryManagement />} /> {/* Thêm route cho danh mục */}
       </Routes>
     </Router>
   );
