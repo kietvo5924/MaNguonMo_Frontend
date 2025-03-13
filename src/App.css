@@ -36,3 +36,226 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* App.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffd15c; /* Màu vàng nhạt */
+  color: #0b4a3b; /* Chữ xanh lá đậm */
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  padding-top: 50px;
+  box-sizing: border-box;
+}
+
+.content-box {
+  width: 80%;
+  background: #E3F2FD;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.home-title {
+  color: #0b4a3b; /* Chữ xanh lá đậm */
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.home-text {
+  font-size: 18px;
+  color: #0b4a3b;
+}
+
+.home-button {
+  margin-top: 20px;
+}
+
+.login-card {
+  width: 350px;
+  background: #E3F2FD;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-title {
+  color: #0b4a3b; /* Xanh lá đậm */
+  font-weight: bold;
+}
+
+.login-input {
+  border: 2px solid #0b4a3b; /* Viền xanh lá đậm */
+  color: #0b4a3b;
+}
+
+.login-input::placeholder {
+  color: #5f8b7a; /* Xám xanh */
+}
+
+.login-button {
+  background-color: #0b4a3b; /* Nút xanh lá */
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+.login-button:hover {
+  background-color: #083f32; /* Xanh lá đậm hơn khi hover */
+}
+
+.register-card {
+  width: 400px;
+  background: #E3F2FD;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.register-title {
+  color: #0b4a3b;
+  font-weight: bold;
+}
+
+.register-input {
+  border: 2px solid #0b4a3b;
+  color: #0b4a3b;
+}
+
+.register-input::placeholder {
+  color: #5f8b7a;
+}
+
+.register-button {
+  background-color: #0b4a3b;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+.register-button:hover {
+  background-color: #083f32;
+}
+
+/* Navbar custom */
+.navbar-custom {
+  background-color: #ffd15c !important; /* Màu vàng */
+}
+
+.navbar-title {
+  color: #0b4a3b !important;
+  font-weight: bold;
+}
+
+.navbar-link {
+  color: #0b4a3b !important;
+  font-weight: bold;
+}
+
+.navbar-link:hover {
+  color: #083f32 !important; /* Xanh lá đậm hơn khi hover */
+}
+
+/* Nút đăng nhập */
+.login-btn {
+  background: transparent;
+  color: #0b4a3b !important;
+  font-weight: bold;
+}
+
+.login-btn:hover {
+  background: #0b4a3b !important;
+  color: white !important;
+}
+
+/* Nút đăng ký */
+.register-btn {
+  background: #0b4a3b !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+.register-btn:hover {
+  background: #083f32 !important;
+}
+
+
+/* Admin Page Styles */
+.admin-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #E3F2FD; /* Màu nền xanh nhạt */
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.admin-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0b4a3b; /* Xanh lá đậm */
+  margin-bottom: 15px;
+}
+
+.admin-welcome {
+  font-size: 18px;
+  color: #5f8b7a; /* Xám xanh */
+  margin-bottom: 25px;
+}
+
+.admin-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.admin-menu li {
+  margin: 15px 0;
+}
+
+.admin-link {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  background: #0b4a3b; /* Màu xanh lá */
+  color: white;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.admin-link:hover {
+  background: #083f32; /* Xanh lá đậm hơn */
+}
+
+.admin-logout {
+  margin-top: 20px;
+  background: #ff4d4d; /* Màu đỏ */
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.admin-logout:hover {
+  background: #cc0000; /* Đỏ đậm hơn */
+}
+
+.logout-button {
+  background-color: #0b4a3b; /* Nút xanh lá */
+  color: white;
+  font-weight: bold;
+  border: none;
+}

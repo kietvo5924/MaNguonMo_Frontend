@@ -4,6 +4,8 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import AdminPage from "./pages_admin/AdminPage";
+import Navbar from "./components/Navbar";
+import './App.css';
 import CategoryManagement from "./pages_admin/CategoryManagement";
 import AddProduct from "./pages_admin/Products/AddProduct";
 import UpdateProduct from "./pages_admin/Products/UpdateProduct";
@@ -12,6 +14,7 @@ import ViewProduct from "./pages_admin/Products/ViewProduct";
 function App() {
   return (
     <Router>
+      < Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />

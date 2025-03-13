@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "../App.css";
 import axios from "axios"; // Thêm import axios để sử dụng cho kiểm tra session
 
 const LoginPage = () => {
@@ -32,25 +34,33 @@ const LoginPage = () => {
     };
 
     return (
-        <div>
-            <h2>Đăng nhập</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Tên đăng nhập"
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Mật khẩu"
-                    onChange={handleChange}
-                    required
-                />
-                <button type="submit">Đăng nhập</button>
-            </form>
+        <div className="container d-flex justify-content-center align-items-center vh-100">
+            <div className="card shadow-lg p-4 login-card">
+                <h2 className="text-center login-title">Đăng nhập</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <input 
+                            type="text" 
+                            name="username" 
+                            className="form-control login-input" 
+                            placeholder="Tên đăng nhập" 
+                            onChange={handleChange} 
+                            required 
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <input 
+                            type="password" 
+                            name="password" 
+                            className="form-control login-input" 
+                            placeholder="Mật khẩu" 
+                            onChange={handleChange} 
+                            required 
+                        />
+                    </div>
+                    <button type="submit" className="btn login-button w-100">Đăng nhập</button>
+                </form>
+            </div>
         </div>
     );
 };

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { register } from "../api";
 import { useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "../App.css";
 
 const RegisterPage = () => {
     const [form, setForm] = useState({
@@ -55,13 +57,15 @@ const RegisterPage = () => {
     };
 
     return (
-        <div>
-            <h2>Đăng ký</h2>
+        <div className="container d-flex justify-content-center align-items-center vh-100">
+            <div className="card shadow-lg p-4 register-card">
+                <h2 className="text-center register-title">Đăng ký</h2>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="mb-3">
                     <input
                         type="text"
                         name="username"
+                        className="form-control register-input"
                         placeholder="Tên đăng nhập"
                         value={form.username}
                         onChange={handleChange}
@@ -69,10 +73,11 @@ const RegisterPage = () => {
                     />
                     {errors.username && <span style={{ color: "red" }}>{errors.username}</span>}
                 </div>
-                <div>
+                <div className="mb-3">
                     <input
                         type="password"
                         name="password"
+                        className="form-control register-input"
                         placeholder="Mật khẩu"
                         value={form.password}
                         onChange={handleChange}
@@ -80,10 +85,11 @@ const RegisterPage = () => {
                     />
                     {errors.password && <span style={{ color: "red" }}>{errors.password}</span>}
                 </div>
-                <div>
+                <div className="mb-3">
                     <input
                         type="email"
                         name="email"
+                        className="form-control register-input"
                         placeholder="Email"
                         value={form.email}
                         onChange={handleChange}
@@ -91,10 +97,11 @@ const RegisterPage = () => {
                     />
                     {errors.email && <span style={{ color: "red" }}>{errors.email}</span>}
                 </div>
-                <div>
+                <div className="mb-3">
                     <input
                         type="text"
                         name="fullName"
+                        className="form-control register-input"
                         placeholder="Họ và tên"
                         value={form.fullName}
                         onChange={handleChange}
@@ -102,10 +109,11 @@ const RegisterPage = () => {
                     />
                     {errors.fullName && <span style={{ color: "red" }}>{errors.fullName}</span>}
                 </div>
-                <div>
+                <div className="mb-3">
                     <input
                         type="text"
                         name="phoneNumber"
+                        className="form-control register-input"
                         placeholder="Số điện thoại"
                         value={form.phoneNumber}
                         onChange={handleChange}
@@ -113,10 +121,11 @@ const RegisterPage = () => {
                     />
                     {errors.phoneNumber && <span style={{ color: "red" }}>{errors.phoneNumber}</span>}
                 </div>
-                <div>
+                <div className="mb-3">
                     <input
                         type="text"
                         name="address"
+                        className="form-control register-input"
                         placeholder="Địa chỉ"
                         value={form.address}
                         onChange={handleChange}
@@ -125,10 +134,11 @@ const RegisterPage = () => {
                     {errors.address && <span style={{ color: "red" }}>{errors.address}</span>}
                 </div>
 
-                <button type="submit" disabled={loading}>
+                <button type="submit" className="btn register-button w-100" disabled={loading}>
                     {loading ? "Đang đăng ký..." : "Đăng ký"}
                 </button>
             </form>
+        </div>
         </div>
     );
 };
