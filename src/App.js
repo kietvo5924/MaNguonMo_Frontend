@@ -5,6 +5,9 @@ import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import AdminPage from "./pages_admin/AdminPage";
 import CategoryManagement from "./pages_admin/CategoryManagement";
+import AddProduct from "./pages_admin/Products/AddProduct";
+import UpdateProduct from "./pages_admin/Products/UpdateProduct";
+import ViewProduct from "./pages_admin/Products/ViewProduct";
 
 function App() {
   return (
@@ -16,6 +19,11 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/categories" element={<CategoryManagement />} /> {/* Thêm route cho danh mục */}
+
+        {/* Add the routes for products */}
+        <Route path="/admin/products/add" element={<AddProduct />} /> {/* Add product */}
+        <Route path="/admin/products/update/:id" element={<UpdateProduct />} /> {/* Update product */}
+        <Route path="/admin/products/view" element={<ViewProduct />} /> {/* View products */}
       </Routes>
     </Router>
   );

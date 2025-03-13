@@ -21,6 +21,9 @@ const AdminPage = () => {
                         <li>
                             <Link to="/admin/orders">Quản lý Đơn hàng</Link>
                         </li>
+                        <li>
+                            <Link to="/admin/products/view">Quản lý Sản phẩm</Link> {/* Link to view products page */}
+                        </li>
                     </ul>
                 </div>
 
