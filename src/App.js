@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import HomePage from "./pages/HomePage";
+import AdminPage from "./pages_admin/AdminPage";
+import CategoryManagement from "./pages_admin/CategoryManagement";
+import AddProduct from "./pages_admin/Products/AddProduct";
+import UpdateProduct from "./pages_admin/Products/UpdateProduct";
+import ViewProduct from "./pages_admin/Products/ViewProduct";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/categories" element={<CategoryManagement />} /> {/* Thêm route cho danh mục */}
+
+        {/* Add the routes for products */}
+        <Route path="/admin/products/add" element={<AddProduct />} /> {/* Add product */}
+        <Route path="/admin/products/update/:id" element={<UpdateProduct />} /> {/* Update product */}
+        <Route path="/admin/products/view" element={<ViewProduct />} /> {/* View products */}
+      </Routes>
+    </Router>
   );
 }
 
