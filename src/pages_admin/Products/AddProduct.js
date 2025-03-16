@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
@@ -20,7 +20,16 @@ const AddProduct = () => {
             }
         ]
     });
+
+    const [categories, setCategories] = useState([]); // 🔹 Thêm state danh mục
     const navigate = useNavigate();
+
+    // 🔹 Lấy danh sách danh mục từ API khi component mount
+    useEffect(() => {
+        axios.get("http://localhost:8080/admin/categories", { withCredentials: true })
+            .then(response => setCategories(response.data))
+            .catch(error => console.error("Lỗi khi lấy danh mục:", error));
+    }, []);
 
     const handleChange = (e, versionIndex = null, colorIndex = null) => {
         const { name, value } = e.target;
@@ -98,8 +107,15 @@ const AddProduct = () => {
                         <Input type="file" name="imageFile" onChange={handleChange} required />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="categoryId">ID Danh mục</Label>
-                        <Input type="number" name="categoryId" value={product.categoryId} onChange={handleChange} required />
+                        <Label for="categoryId">Danh mục</Label>
+                        <Input type="select" name="categoryId" value={product.categoryId} onChange={handleChange} required>
+                            <option value="">-- Chọn danh mục --</option>
+                            {categories.map(category => (
+                                <option key={category.id} value={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </Input>
                     </FormGroup>
 
                     {product.versions.map((version, versionIndex) => (
