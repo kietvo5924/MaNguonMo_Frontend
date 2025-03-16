@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
 import RequireAuth from '../../components/RequireAuth';
 
 const UpdateProduct = () => {
@@ -24,10 +25,9 @@ const UpdateProduct = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    // Load product data
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/admin/products/${id}`)
+            .get(`http://localhost:8080/admin/products/${id}`, { withCredentials: true })
             .then((response) => {
                 setProduct(response.data);
                 setIsLoading(false);
@@ -42,7 +42,6 @@ const UpdateProduct = () => {
         const { name, value } = e.target;
         const updatedProduct = { ...product };
 
-        // Check for fields directly on the product
         if (
             name === "name" ||
             name === "description" ||
@@ -53,13 +52,10 @@ const UpdateProduct = () => {
         ) {
             updatedProduct[name] = value;
         }
-        // Check for fields in the versions
         else if (name === "versionName" || name === "extraPrice") {
             updatedProduct.versions[versionIndex][name] = value;
         }
-        // Check for color fields using version and color indices
         else if (name.startsWith("colorName") || name.startsWith("colorCode")) {
-            // Split to extract versionIndex and colorIndex
             const nameParts = name.split("-");
             const versionIdx = parseInt(nameParts[1]);
             const colorIdx = parseInt(nameParts[2]);
@@ -77,7 +73,6 @@ const UpdateProduct = () => {
     const handleSubmit = () => {
         setIsLoading(true);
 
-        // Update product information
         axios
             .put(
                 `http://localhost:8080/admin/products/${id}`,
@@ -92,7 +87,6 @@ const UpdateProduct = () => {
                 { withCredentials: true }
             )
             .then(() => {
-                // Update versions information
                 const updateVersionRequests = product.versions.map((version) =>
                     axios.put(
                         `http://localhost:8080/admin/products/versions/${version.id}`,
@@ -104,7 +98,6 @@ const UpdateProduct = () => {
                     )
                 );
 
-                // Update colors information for each version
                 const updateColorRequests = product.versions.map((version) =>
                     version.colors.map((color) =>
                         axios.put(
@@ -118,14 +111,10 @@ const UpdateProduct = () => {
                     )
                 );
 
-                // Wait for all version and color updates to complete
-                Promise.all([
-                    ...updateVersionRequests,
-                    ...updateColorRequests.flat()
-                ])
+                Promise.all([...updateVersionRequests, ...updateColorRequests.flat()])
                     .then(() => {
                         alert("Sản phẩm đã được cập nhật!");
-                        navigate("/admin/products/view");
+                        navigate("/admin/products");
                     })
                     .catch(() => {
                         alert("Lỗi khi cập nhật các phiên bản hoặc màu sắc sản phẩm!");
@@ -140,105 +129,165 @@ const UpdateProduct = () => {
 
     return (
         <RequireAuth roles={["ADMIN", "NHAN_VIEN"]}>
-            <div>
+            <div className="container mt-4">
                 <h2>Chỉnh sửa sản phẩm</h2>
-
-                <input
-                    type="text"
-                    name="name"
-                    value={product.name}
-                    onChange={handleInputChange}
-                    placeholder="Tên sản phẩm"
-                    disabled={isLoading}
-                />
-                <textarea
-                    name="description"
-                    value={product.description}
-                    onChange={handleInputChange}
-                    placeholder="Mô tả sản phẩm"
-                    disabled={isLoading}
-                />
-                <input
-                    type="number"
-                    name="price"
-                    value={product.price}
-                    onChange={handleInputChange}
-                    placeholder="Giá sản phẩm"
-                    disabled={isLoading}
-                />
-                <input
-                    type="number"
-                    name="stockQuantity"
-                    value={product.stockQuantity}
-                    onChange={handleInputChange}
-                    placeholder="Số lượng tồn kho"
-                    disabled={isLoading}
-                />
-                <input
-                    type="text"
-                    name="imageUrl"
-                    value={product.imageUrl}
-                    onChange={handleInputChange}
-                    placeholder="URL ảnh sản phẩm"
-                    disabled={isLoading}
-                />
-                <input
-                    type="number"
-                    name="categoryId"
-                    value={product.categoryId}
-                    onChange={handleInputChange}
-                    placeholder="ID danh mục"
-                    disabled={isLoading}
-                />
-
-                {/* Versions Section */}
-                {product.versions.map((version, versionIndex) => (
-                    <div key={versionIndex}>
-                        <h3>Phiên bản {versionIndex + 1}</h3>
-                        <input
-                            type="text"
-                            name="versionName"
-                            value={version.versionName}
-                            onChange={(e) => handleInputChange(e, versionIndex)}
-                            placeholder="Tên phiên bản"
-                            disabled={isLoading}
-                        />
-                        <input
-                            type="number"
-                            name="extraPrice"
-                            value={version.extraPrice}
-                            onChange={(e) => handleInputChange(e, versionIndex)}
-                            placeholder="Giá thêm"
-                            disabled={isLoading}
-                        />
-
-                        {/* Colors Section */}
-                        {version.colors.map((color, colorIndex) => (
-                            <div key={colorIndex}>
-                                <input
+                <Form>
+                    <Row>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label for="name">Tên sản phẩm</Label>
+                                <Input
                                     type="text"
-                                    name={`colorName-${versionIndex}-${colorIndex}`}  // Unique name for color name
-                                    value={color.colorName}
-                                    onChange={(e) => handleInputChange(e, versionIndex, colorIndex)}
-                                    placeholder="Tên màu"
+                                    name="name"
+                                    value={product.name}
+                                    onChange={handleInputChange}
+                                    placeholder="Tên sản phẩm"
+                                    disabled={isLoading}
+                                    required
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="price">Giá sản phẩm</Label>
+                                <Input
+                                    type="number"
+                                    name="price"
+                                    value={product.price}
+                                    onChange={handleInputChange}
+                                    placeholder="Giá sản phẩm"
+                                    disabled={isLoading}
+                                    required
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="imageUrl">URL ảnh sản phẩm</Label>
+                                <Input
+                                    type="text"
+                                    name="imageUrl"
+                                    value={product.imageUrl}
+                                    onChange={handleInputChange}
+                                    placeholder="URL ảnh sản phẩm"
                                     disabled={isLoading}
                                 />
-                                <input
-                                    type="text"
-                                    name={`colorCode-${versionIndex}-${colorIndex}`}  // Unique name for color code
-                                    value={color.colorCode}
-                                    onChange={(e) => handleInputChange(e, versionIndex, colorIndex)}
-                                    placeholder="Mã màu"
+                            </FormGroup>
+                        </Col>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label for="description">Mô tả sản phẩm</Label>
+                                <Input
+                                    type="textarea"
+                                    name="description"
+                                    value={product.description}
+                                    onChange={handleInputChange}
+                                    placeholder="Mô tả sản phẩm"
                                     disabled={isLoading}
+                                    required
                                 />
-                            </div>
-                        ))}
-                    </div>
-                ))}
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="stockQuantity">Số lượng tồn kho</Label>
+                                <Input
+                                    type="number"
+                                    name="stockQuantity"
+                                    value={product.stockQuantity}
+                                    onChange={handleInputChange}
+                                    placeholder="Số lượng tồn kho"
+                                    disabled={isLoading}
+                                    required
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="categoryId">ID danh mục</Label>
+                                <Input
+                                    type="number"
+                                    name="categoryId"
+                                    value={product.categoryId}
+                                    onChange={handleInputChange}
+                                    placeholder="ID danh mục"
+                                    disabled={isLoading}
+                                    required
+                                />
+                            </FormGroup>
+                        </Col>
+                    </Row>
 
-                <button onClick={handleSubmit} disabled={isLoading}>
-                    {isLoading ? "Đang xử lý..." : "Cập nhật sản phẩm"}
-                </button>
+                    <h4>Phiên bản và Màu sắc</h4>
+                    {product.versions.map((version, versionIndex) => (
+                        <Row key={versionIndex} className="mb-3">
+                            <Col md={6}>
+                                <FormGroup>
+                                    <Label for="versionName">Tên phiên bản</Label>
+                                    <Input
+                                        type="text"
+                                        name="versionName"
+                                        value={version.versionName}
+                                        onChange={(e) => handleInputChange(e, versionIndex)}
+                                        placeholder="Tên phiên bản"
+                                        disabled={isLoading}
+                                        required
+                                    />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="extraPrice">Giá thêm</Label>
+                                    <Input
+                                        type="number"
+                                        name="extraPrice"
+                                        value={version.extraPrice}
+                                        onChange={(e) => handleInputChange(e, versionIndex)}
+                                        placeholder="Giá thêm"
+                                        disabled={isLoading}
+                                        required
+                                    />
+                                </FormGroup>
+                            </Col>
+                            <Col md={6}>
+                                {version.colors.map((color, colorIndex) => (
+                                    <Row key={colorIndex} className="align-items-center mb-2">
+                                        <Col md={5}>
+                                            <FormGroup>
+                                                <Label for={`colorName-${versionIndex}-${colorIndex}`}>
+                                                    Tên màu
+                                                </Label>
+                                                <Input
+                                                    type="text"
+                                                    name={`colorName-${versionIndex}-${colorIndex}`}
+                                                    value={color.colorName}
+                                                    onChange={(e) => handleInputChange(e, versionIndex, colorIndex)}
+                                                    placeholder="Tên màu"
+                                                    disabled={isLoading}
+                                                    required
+                                                />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col md={5}>
+                                            <FormGroup>
+                                                <Label for={`colorCode-${versionIndex}-${colorIndex}`}>
+                                                    Mã màu
+                                                </Label>
+                                                <Input
+                                                    type="text"
+                                                    name={`colorCode-${versionIndex}-${colorIndex}`}
+                                                    value={color.colorCode}
+                                                    onChange={(e) => handleInputChange(e, versionIndex, colorIndex)}
+                                                    placeholder="Mã màu"
+                                                    disabled={isLoading}
+                                                    required
+                                                />
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+                                ))}
+                            </Col>
+                        </Row>
+                    ))}
+
+                    <Button 
+                        color="primary" 
+                        onClick={handleSubmit} 
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Đang xử lý..." : "Cập nhật sản phẩm"}
+                    </Button>
+                </Form>
             </div>
         </RequireAuth>
     );
