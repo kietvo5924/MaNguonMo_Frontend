@@ -6,28 +6,28 @@ import RequireAuth from "../components/RequireAuth";  // Import the RequireAuth 
 const AdminPage = () => {
     return (
         <RequireAuth roles={["ADMIN", "NHAN_VIEN"]}>
-            <div>
-                <h1>Admin Dashboard</h1>
-                <p>Chào mừng, bạn có quyền quản trị.</p>
+            <div className="admin-container">
+                <h1 className="admin-title">Admin Dashboard</h1>
+                <p className="admin-welcome">Chào mừng, bạn có quyền quản trị.</p>
 
-                <div>
+                <div className="admin-menu">
                     <ul>
                         <li>
-                            <Link to="/admin/categories">Quản lý Danh mục</Link>
+                            <Link className="admin-link" to="/admin/categories">Quản lý Danh mục</Link>
                         </li>
                         <li>
-                            <Link to="/admin/users">Quản lý Người dùng</Link>
+                            <Link className="admin-link" to="/admin/users">Quản lý Người dùng</Link>
                         </li>
                         <li>
-                            <Link to="/admin/orders">Quản lý Đơn hàng</Link>
+                            <Link className="admin-link" to="/admin/orders">Quản lý Đơn hàng</Link>
                         </li>
                         <li>
-                            <Link to="/admin/products/view">Quản lý Sản phẩm</Link> {/* Link to view products page */}
+                            <Link className="admin-link" to="/admin/products/view">Quản lý Sản phẩm</Link> {/* Link to view products page */}
                         </li>
                     </ul>
                 </div>
 
-                <LogoutButton />
+                <LogoutButton className="admin-logout" />
             </div>
         </RequireAuth>
     );
