@@ -70,7 +70,12 @@ const ViewProduct = () => {
                                     <td>{product.price}</td>
                                     <td>{product.stockQuantity}</td>
                                     <td>
-                                        <img src={product.imageUrl} alt={product.name} style={{ width: "50px" }} />
+                                    <img 
+    src={`http://localhost:8080/admin/products/uploads/${product.imageUrl}`} 
+    alt={product.name} 
+    width="150" 
+    onError={(e) => e.target.src = "/default-image.jpg"} 
+/>
                                     </td>
                                     <td>
                                         <Button color="info" size="sm" className="me-2" onClick={() => handleEdit(product.id)}>Chỉnh sửa</Button>

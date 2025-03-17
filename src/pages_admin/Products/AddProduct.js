@@ -84,41 +84,39 @@ const AddProduct = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Step 1: Send product data as JSON
-        const productData = {
-            name: product.name,
-            description: product.description,
-            price: product.price,
-            stockQuantity: product.stockQuantity,
-            categoryId: product.categoryId,
-            versions: product.versions
-        };
-
+    
         try {
-            const response = await axios.post("http://localhost:8080/admin/products", productData, {
-                headers: { "Content-Type": "application/json" },
-                withCredentials: true
-            });
-
-            const productId = response.data.id; // Giả sử backend trả về ID của sản phẩm
-
-            // Step 2: Upload image file if it exists
+            // Gửi dữ liệu sản phẩm trước
+            const response = await axios.post("http://localhost:8080/admin/products", {
+                name: product.name,
+                description: product.description,
+                price: product.price,
+                stockQuantity: product.stockQuantity,
+                categoryId: product.categoryId,
+                versions: product.versions
+            }, { withCredentials: true });
+    
+            const productId = response.data.id; // ID sản phẩm vừa tạo
+    
+            // Nếu có ảnh, gửi tiếp ảnh
             if (product.imageFile) {
                 const formData = new FormData();
                 formData.append("imageFile", product.imageFile);
+    
                 await axios.post(`http://localhost:8080/admin/products/${productId}/upload-image`, formData, {
-                    withCredentials: true
+                    withCredentials: true,
+                    headers: { "Content-Type": "multipart/form-data" }
                 });
             }
-
+    
             alert("Sản phẩm đã được thêm thành công!");
             navigate("/admin/products");
         } catch (error) {
-            console.error("Error adding product:", error.response?.data || error.message);
+            console.error("Lỗi khi thêm sản phẩm:", error.response?.data || error.message);
             alert("Lỗi khi thêm sản phẩm!");
         }
     };
+    
 
     return (
         <RequireAuth roles={["ADMIN", "NHAN_VIEN"]}>
