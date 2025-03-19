@@ -43,7 +43,7 @@ const AdminNavbar = () => {
 
   return (
     
-          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+          <nav className="navbar navbar-expand-lg navbar-dark bg-light">
             <div className="container">
               <Link className="navbar-brand navbar-title" to="/admin">
                 Admin Panel
