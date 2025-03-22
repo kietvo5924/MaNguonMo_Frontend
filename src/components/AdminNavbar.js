@@ -24,6 +24,7 @@ const AdminNavbar = () => {
   if (!location.pathname.startsWith("/admin")) {
     return null; // Không hiển thị AdminNavbar trên trang thường
   }
+
   const handleLogout = async () => {
     try {
       const response = await fetch("http://localhost:8080/api/auth/logout", {
@@ -42,8 +43,6 @@ const AdminNavbar = () => {
   };
 
   return (
-<<<<<<< HEAD
-
     <nav className="navbar navbar-expand-lg navbar-dark bg-light">
       <div className="container">
         <Link className="navbar-brand navbar-title" to="/admin">
@@ -62,13 +61,6 @@ const AdminNavbar = () => {
             <li className="nav-item">
               <Link className="nav-link navbar-link" to="/admin/categories">
                 Danh mục
-=======
-    
-          <nav className="navbar navbar-expand-lg navbar-dark bg-light">
-            <div className="container">
-              <Link className="navbar-brand navbar-title" to="/admin">
-                Admin Panel
->>>>>>> 86c5f7c0db54e09cc2aca45a500cca8d2a0efbb4
               </Link>
             </li>
             <li className="nav-item">
