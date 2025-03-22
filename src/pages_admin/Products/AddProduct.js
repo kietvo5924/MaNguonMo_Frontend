@@ -33,9 +33,11 @@ const AddProduct = () => {
     const handleChange = (e, versionIndex = null, colorIndex = null) => {
         const { name, value, files } = e.target;
         let updatedProduct = { ...product };
-
+    
         if (name === "imageFile") {
-            updatedProduct.imageFile = files[0];
+            const file = files[0];
+            updatedProduct.imageFile = file;
+            updatedProduct.previewImage = URL.createObjectURL(file); // Tạo URL xem trước
         } else if (versionIndex === null) {
             updatedProduct[name] = value;
         } else if (colorIndex === null) {
@@ -45,6 +47,7 @@ const AddProduct = () => {
         }
         setProduct(updatedProduct);
     };
+    
 
     const addVersion = () => {
         setProduct({
@@ -172,15 +175,33 @@ const AddProduct = () => {
 
                     <Row>
                         <Col md={6}>
-                            <FormGroup>
-                                <Label for="imageFile">Hình ảnh</Label>
-                                <Input 
-                                    type="file" 
-                                    name="imageFile" 
-                                    onChange={handleChange} 
-                                    // required 
-                                />
-                            </FormGroup>
+                        <FormGroup>
+                            <Label for="imageFile">Hình ảnh</Label>
+                            <Input 
+                                type="file" 
+                                name="imageFile" 
+                                onChange={handleChange} 
+                                required 
+                            />
+                            {product.previewImage && (
+                                <div className="mt-2 d-flex justify-content-center">
+                                    <img 
+                                        src={product.previewImage} 
+                                        alt="Xem trước ảnh sản phẩm" 
+                                        style={{ 
+                                            maxWidth: "100%", // Đảm bảo ảnh không vượt quá chiều rộng của container
+                                            maxHeight: "400px", // Hạn chế chiều cao để không quá lớn
+                                            objectFit: "contain", // Đảm bảo ảnh hiển thị đầy đủ mà không bị cắt xén
+                                            border: "1px solid #ccc", 
+                                            borderRadius: "5px",
+                                            padding: "5px",
+                                            backgroundColor: "#f8f8f8" // Tạo nền nhẹ để nổi bật ảnh
+                                        }} 
+                                    />
+                                </div>
+                            )}
+                        </FormGroup>
+
                         </Col>
                         <Col md={6}>
                             <FormGroup>
