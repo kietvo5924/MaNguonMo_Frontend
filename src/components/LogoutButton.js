@@ -24,7 +24,11 @@ const LogoutButton = () => {
     // Nếu chưa đăng nhập, không hiển thị nút logout
     if (!user) return null;
 
-    return <button onClick={handleLogout}>Đăng Xuất</button>;
+    return (
+        <button className="btn logout-button w-100" onClick={handleLogout}>
+            Đăng Xuất
+        </button>
+    );
 };
 
 export default LogoutButton;
